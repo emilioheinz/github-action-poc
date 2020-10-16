@@ -1,4 +1,4 @@
-name: Release integ01 and preprod
+name: Stage
 
 on:
   push:
@@ -11,19 +11,4 @@ jobs:
     steps:
       - name: Build Android integ01 and Publish on App Center
         run: |
-          echo "Build Android pointing to integ01 APK"
-
-      - name: Build Android preprod and Publish on App Center
-        run: |
-          echo "Build Android pointing to preprod APK"
-
-  stage-ios:
-    runs-on: macos-latest
-    steps:
-      - name: Build iOS integ01 and Publish on App Center
-        run: |
-          echo "Build iOS pointing to integ01 APK"
-
-      - name: Build iOS preprod and Publish on App Center
-        run: |
-          echo "Build iOS pointing to preprod APK"
+          echo github.event.commits[0].message
