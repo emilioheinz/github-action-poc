@@ -1,0 +1,26 @@
+name: Release integ01 and preprod
+
+on:
+  push:
+    branches:
+      - homolog
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Build Android integ01 and Publish on App Center
+        run: |
+          echo "Build Android pointing to integ01 APK"
+
+      - name: Build iOS integ01 and Publish on App Center
+        run: |
+          echo "Build iOS pointing to integ01 APK"
+
+      - name: Build Android preprod and Publish on App Center
+        run: |
+          echo "Build Android pointing to preprod APK"
+
+      - name: Build iOS preprod and Publish on App Center
+        run: |
+          echo "Build iOS pointing to preprod APK"
