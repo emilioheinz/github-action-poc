@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Build Android integ01 and Publish on App Center
-        if: "contains(github.event.head_commit.message, 'run stage ci')"
+        if: "contains(github.event.head_commit.message, 'run ci')"
         run: |
           echo "RUNNING CI"
     
