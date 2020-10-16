@@ -1,0 +1,15 @@
+name: Workflow Test
+
+on:
+  push:
+    branches:
+      - main
+      - homolog
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build DEV and Publish
+        run: |
+          echo "RUN TEST"
