@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+name: "Master Pipeline Test"
+
+trigger:
+  - master
+
+pool:
+  vmImage: "macos-latest"
+
+stages:
+  - stage: Setup environment
+    jobs:
+      - job: InstallSomething
+        steps:
+          - script: echo Installing something!
+  - stage: Clean envrironment
+    jobs:
+      - job: CleanYarn
+        steps:
+          - script: echo CleaningYarn!
+  - stage: BuildAndDeployOnAppCenter
+    jobs:
+      - job: Android
+        steps:
+          - script: echo Deploying Android Pointing To Integ!
+          - script: echo Deploying Android Pointing To Preprod!
+      - job: iOS
+        steps:
+          - script: echo Deploying iOS Pointing To Integ!
+          - script: echo Deploying iOS Pointing To Preprod!
