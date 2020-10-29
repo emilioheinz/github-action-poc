@@ -25,22 +25,18 @@ stages:
           - script: npm install -g yarn@1.21.1
 
   - stage: CleanEnvironment
-    displayName: "Remove old data"
     dependsOn: SetupEnvironment
     jobs:
       - job: CleanJSData
-        displayName: "Remove node_modules and yarn.lock"
         steps:
           - script: rm -rf node_modules yarn.lock
 
       - job: CleanAndroid
-        displayName: "Cleand Android Build"
         dependsOn: CleanJSData
         steps:
           - script: cd android && ./gradlew clean && cd ..
 
       - job: CleanIOS
-        displayName: "Cleand iOS Build"
         steps:
           - script: cd ios && rm -rf Pods Podfile.lock && cd ..
 
