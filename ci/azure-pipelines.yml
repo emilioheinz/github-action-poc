@@ -61,4 +61,4 @@ stages:
       - job: iOS
         steps:
           - script: echo "Deploying iOS Pointing To Integ!"
-          - script: "echo Deploying iOS Pointing To Preprod!"
+          - script: echo "Deploying iOS Pointing To Preprod!"
