@@ -9,7 +9,7 @@ trigger:
   - master
 
 pool:
-  vmImage: "macos-latest"
+  vmImage: "ubuntu-latest"
 
 stages:
   - stage: SetupEnvironment
