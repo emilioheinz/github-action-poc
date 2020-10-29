@@ -15,15 +15,12 @@ stages:
   - stage: SetupEnvironment
     displayName: "Install necessary tools."
     jobs:
-      - job: SetupNode
-        displayName: "Install Node"
+      - job: SetupNodeAndYarn
+        displayName: "Install Node And Yarn"
         steps:
           - task: NodeTool@0
             inputs:
               versionSpec: "12.14.1"
-      - job: SetupYarn
-        displayName: "Install Yarn"
-        steps:
           - script: npm install -g yarn@1.21.1
   - stage: CleanEnvironment
     displayName: "Remove old data"
