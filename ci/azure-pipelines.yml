@@ -22,7 +22,7 @@ stages:
       - job: InstallYarn
         dependsOn: InstallNode
         steps:
-          - script: npm install -g yarn@1.21.1
+          - script: npm install yarn@1.21.1
 
   - stage: CleanEnvironment
     dependsOn: SetupEnvironment
