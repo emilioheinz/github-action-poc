@@ -14,16 +14,9 @@ pool:
 stages:
   - stage: SetupEnvironment
     jobs:
-      - job: InstallNode
+      - job:
         steps:
-          - task: NodeTool@0
-            inputs:
-              versionSpec: "12.14.1"
-      - job: InstallYarn
-        dependsOn: InstallNode
-        steps:
-          - script: npm install yarn@1.21.1
-
+          - script: echo "Setup Node"
   - stage: CleanEnvironment
     dependsOn: SetupEnvironment
     jobs:
