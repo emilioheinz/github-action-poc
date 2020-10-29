@@ -29,16 +29,16 @@ stages:
     jobs:
       - job: CleanJSData
         steps:
-          - script: rm -rf node_modules yarn.lock
+          - script: echo "rm -rf node_modules yarn.lock"
 
       - job: CleanAndroid
         dependsOn: CleanJSData
         steps:
-          - script: cd android && ./gradlew clean && cd ..
+          - script: echo "cd android && ./gradlew clean"
 
       - job: CleanIOS
         steps:
-          - script: cd ios && rm -rf Pods Podfile.lock && cd ..
+          - script: echo "cd ios && rm -rf Pods Podfile.lock"
 
   - stage: InstallDependncies
     dependsOn: [SetupEnvironment, CleanEnvironment]
@@ -49,16 +49,16 @@ stages:
       - job: iOS
         dependsOn: JS
         steps:
-          - script: cd ios && pod install
+          - script: echo "cd ios && pod install"
 
   - stage: BuildAndDeployOnAppCenter
     dependsOn: [SetupEnvironment, CleanEnvironment, InstallDependncies]
     jobs:
       - job: Android
         steps:
-          - script: echo Deploying Android Pointing To Integ!
-          - script: echo Deploying Android Pointing To Preprod!
+          - script: echo "Deploying Android Pointing To Integ!"
+          - script: echo "Deploying Android Pointing To Preprod!"
       - job: iOS
         steps:
-          - script: echo Deploying iOS Pointing To Integ!
-          - script: echo Deploying iOS Pointing To Preprod!
+          - script: echo "Deploying iOS Pointing To Integ!"
+          - script: "echo Deploying iOS Pointing To Preprod!"
