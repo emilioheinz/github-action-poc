@@ -9,7 +9,7 @@ trigger:
   - master
 
 pool:
-  vmImage: "macOS-10.156"
+  vmImage: "macOS-10.15"
 
 stages:
   - stage: SetupEnvironment
