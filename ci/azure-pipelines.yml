@@ -9,20 +9,47 @@ trigger:
   - master
 
 pool:
-  vmImage: "macos-latest"
+  vmImage: "macOS-10.156"
 
 stages:
   - stage: SetupEnvironment
+    displayName: "Install necessary tools."
     jobs:
-      - job: InstallSomething
+      - job: SetupNode
+        displayName: "Install Node"
         steps:
-          - script: echo Installing something!
-  - stage: CleanEnvrironment
+          - task: NodeTool@0
+            inputs:
+              versionSpec: "12.14.1"
+      - job: SetupYarn
+        displayName: "Install Yarn"
+        steps:
+          - script: npm install -g yarn@1.21.1
+  - stage: CleanEnvironment
+    displayName: "Remove old data"
     jobs:
-      - job: CleanYarn
+      - job: CleanJSData
+        displayName: "Remove node_modules and yarn.lock"
         steps:
-          - script: echo CleaningYarn!
+          - script: rm -rf node_modules yarn.lock
+      - job: CleanAndroid
+        displayName: "Cleand Android Build"
+        steps:
+          - script: cd android && ./gradlew clean && cd ..
+      - job: CleanIOS
+        displayName: "Cleand iOS Build"
+        steps:
+          - script: cd ios && rm -rf Pods Podfile.lock && cd ..
+  - stage: InstallDependncies
+    displayName: "Install all dependencies"
+    jobs:
+      - job: YarnAndPodInstall
+        displayName: "Install JS and iOS Dependencies"
+        steps:
+          - script: yarn
+          - script: cd ios && pod install
   - stage: BuildAndDeployOnAppCenter
+    displayName: "Build Apps and distribute on AppCenter"
     jobs:
       - job: Android
         steps:
