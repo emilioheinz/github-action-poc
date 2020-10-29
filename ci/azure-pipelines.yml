@@ -12,12 +12,12 @@ pool:
   vmImage: "macos-latest"
 
 stages:
-  - stage: Setup environment
+  - stage: SetupEnvironment
     jobs:
       - job: InstallSomething
         steps:
           - script: echo Installing something!
-  - stage: Clean envrironment
+  - stage: CleanEnvrironment
     jobs:
       - job: CleanYarn
         steps:
