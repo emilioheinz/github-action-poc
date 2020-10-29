@@ -14,13 +14,13 @@ pool:
 stages:
   - stage: SetupEnvironment
     jobs:
-      - job:
+      - job: SetupNode
         steps:
           - script: echo "Setup Node"
   - stage: CleanEnvironment
     dependsOn: SetupEnvironment
     jobs:
-      - job: CleanJSData
+      - job: CleanJS
         steps:
           - script: echo "rm -rf node_modules yarn.lock"
 
