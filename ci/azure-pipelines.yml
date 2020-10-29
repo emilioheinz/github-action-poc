@@ -13,40 +13,50 @@ pool:
 
 stages:
   - stage: SetupEnvironment
-    displayName: "Install necessary tools."
     jobs:
-      - job: SetupNodeAndYarn
-        displayName: "Install Node And Yarn"
+      - job: InstallNode
         steps:
           - task: NodeTool@0
             inputs:
               versionSpec: "12.14.1"
+      - job: InstallYarn
+        dependsOn: InstallNode
+        steps:
           - script: npm install -g yarn@1.21.1
+
   - stage: CleanEnvironment
     displayName: "Remove old data"
+    dependsOn: SetupEnvironment
     jobs:
       - job: CleanJSData
         displayName: "Remove node_modules and yarn.lock"
         steps:
           - script: rm -rf node_modules yarn.lock
+
       - job: CleanAndroid
         displayName: "Cleand Android Build"
+        dependsOn: CleanJSData
         steps:
           - script: cd android && ./gradlew clean && cd ..
+
       - job: CleanIOS
         displayName: "Cleand iOS Build"
         steps:
           - script: cd ios && rm -rf Pods Podfile.lock && cd ..
+
   - stage: InstallDependncies
-    displayName: "Install all dependencies"
+    dependsOn: [SetupEnvironment, CleanEnvironment]
     jobs:
-      - job: YarnAndPodInstall
-        displayName: "Install JS and iOS Dependencies"
+      - job: JS
         steps:
           - script: yarn
+      - job: iOS
+        dependsOn: JS
+        steps:
           - script: cd ios && pod install
+
   - stage: BuildAndDeployOnAppCenter
-    displayName: "Build Apps and distribute on AppCenter"
+    dependsOn: [SetupEnvironment, CleanEnvironment, InstallDependncies]
     jobs:
       - job: Android
         steps:
